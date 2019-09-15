@@ -1,6 +1,6 @@
 ---
 layout: post
-title: useful links for developers [2019]
+title: Useful links for developers [2019]
 category: software development
 tags: [references]
 ---
