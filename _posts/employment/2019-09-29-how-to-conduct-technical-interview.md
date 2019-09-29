@@ -2,7 +2,7 @@
 layout: post
 title: Как проводить технические собеседования. С. Тепляков
 category: employment
-tags: [interview, employment]
+tags: [interview, employment, copypaste]
 ---
 
 Источник: [Блог Сергея Теплякова](http://sergeyteplyakov.blogspot.com/2014/06/technical-interview.html)
@@ -96,7 +96,7 @@ tags: [interview, employment]
     class Foo
     {
     	public event EventHandler MyEvent;
-        
+
     	private readonly int _syncRoot = 42;
 
     	public void RaiseMyEvent()
