@@ -647,3 +647,16 @@ pre {
   display: inline;
   margin-right: 16px;
 }
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.avatar-wrapper {
+  margin-top: -150px;
+  position: relative;
+}
+
+.avatar-img {
+  border: 2px solid white;
+}
