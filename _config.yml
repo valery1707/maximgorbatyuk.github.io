@@ -23,6 +23,7 @@ navbar-links:
   Blog: "blog"
   Tags: "tags"
   Categories: "categories"
+  KB: "https://github.com/maximgorbatyuk/knowledge-base"
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
