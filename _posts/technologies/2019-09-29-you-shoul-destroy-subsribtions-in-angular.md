@@ -1,6 +1,6 @@
 ---
 layout: post
-title: не забудьте отписаться. Subject Subscribtions в Angular и RxJS
+title: Не забудьте отписаться. Subject Subscribtions в Angular и RxJS
 category: technologies
 tags: [development, technologies, angular, rxjs]
 ---
