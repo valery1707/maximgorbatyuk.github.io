@@ -2,7 +2,6 @@
 layout: post
 title: Этапы эволюции обратной связи в команде разработки
 category: video
-gh-badge: [star, follow]
 tags: [video]
 ---
 

@@ -1,8 +1,12 @@
 ---
 layout: post
-title: Действительно ли образование в СССР было "хорошим"?
+title: Действительно ли образование в СССР было "лучшим в мире"?
 category: different
-tags: [original, opinion, thoughts]
+tags:
+  - original
+  - opinion
+  - thoughts
+published: true
 ---
 
 Каждый раз, когда говорят, что "в советском союзе было самое лучшее образование в мире", я в это несильно верю.
@@ -33,7 +37,7 @@ tags: [original, opinion, thoughts]
 
 Я вижу здесь несколько проблем, которые и делают это исследование почти невыполнимым.
 
-## Проблема #1. Как подвергнуть людей повторному образованию "с чистого листа"?
+## Проблема #1. Как подвергнуть людей повторному образованию " с чистого листа"?
 
 Невозможно обучить группу людей сначала по одной системе, а затем по другой, ведь они будут уже обучены некоторым знаниям, и контрольные тесты гипотетически будут лучше, чем в первый раз при другой системе. Значит мы должны каким-то образом стереть память, чтобы они "вошли" в новую системы с чистым умом. Пока что нет стабильного способа стереть память человеку, и вряд ли он появится в обозримом будущем.
 
@@ -70,9 +74,3 @@ tags: [original, opinion, thoughts]
 - [Remarks of senator John F. Kennedy](https://www.jfklibrary.org/archives/other-resources/john-f-kennedy-speeches/baltimore-md-19580218)
 - [About Soviet Union education system on Quora](https://www.quora.com/Do-you-believe-Soviet-Union-education-system-was-the-best-in-the-world-at-that-time-Why)
 - [Here’s why education in the USSR was among the best in the world](https://www.rbth.com/history/328721-education-in-ussr-the-best)
-
-
-
-
-
-
