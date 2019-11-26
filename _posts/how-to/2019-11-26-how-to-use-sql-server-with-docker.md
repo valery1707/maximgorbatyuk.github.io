@@ -36,7 +36,7 @@ docker ps -a
 
 Имхо удобнее работать с SQL сервером через GUI-клиент, чем через консоль. Для этого мы будем использовать MS SQL Management Studio (далее SSMS). Устанавливаем и запускаем, а затем подключаемся к серверу по следующим данным:
 
-![login window](/_posts/how-to/2019-11-26-how-to-use-sql-server-with-docker/login.png)
+![login window](/img/2019-11-26-how-to-use-sql-server-with-docker/login.png)
 
 Что вводим:
 
@@ -47,4 +47,4 @@ docker ps -a
 ## Полезные ссылки:
 
 - [Quickstart: Run SQL Server container images with Docker](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell)
--[Using SSMS to remote connect to docker container](https://stackoverflow.com/a/48105688)
+- [Using SSMS to remote connect to docker container](https://stackoverflow.com/a/48105688)
