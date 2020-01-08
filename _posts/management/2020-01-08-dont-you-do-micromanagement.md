@@ -2,7 +2,7 @@
 layout: post
 title: Вы уверены, что вы не микроменеджер? / Егор Бугаенко
 category: management
-tags: [original, project management, processes]
+tags: [original, project management, processes, yegor256]
 ---
 
 Эта статья - конспект видео-доклада Егора Бугаенко. Доклад доступен на youtube по [ссылке](https://youtu.be/6DrD_FucDK4).
