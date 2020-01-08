@@ -2,7 +2,7 @@
 layout: post
 title: Не думайте о качестве, думайте о скорости. Конспект доклада Егора Бугаенко
 category: software development
-tags: [speech, development, management, video]
+tags: [speech, development, management, video, yegor256]
 ---
 
 Источник: [Видео-доклад](https://www.youtube.com/watch?v=jFSSV1pdZTw)

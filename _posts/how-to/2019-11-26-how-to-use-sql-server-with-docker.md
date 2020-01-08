@@ -43,6 +43,49 @@ docker ps -a
 - Логин: `sa`
 - Пароль: тот самый `<YourStrong@Passw0rd>`, что указали в команде для докера
 
+## Upd: Файл docker-compose для докера
+
+Для упрощения работы с сервером базы данных можно создать скрипт, который будет запускать сервер только на время, пока открыт скрипт. Соответственно, когда скрипт закрывается, то и контейнер останавливается и перестает есть ресурсы. Для этого нужно создать два файла в некоторой директории:
+
+1. `docker-compose.yml`:
+
+```yml
+
+version: "3.4"
+
+services:
+  database:
+    container_name: "sql-server-2019"
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    environment:
+      SA_PASSWORD: "STRONG!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+```
+
+2. Файл-лаунчер сервера `run.ps1`:
+
+```powershell
+
+docker-compose -f "docker-compose.yml" stop
+docker-compose -f "docker-compose.yml" rm --force
+docker-compose -f "docker-compose.yml" up --build database
+
+```
+
+3. Теперь можно использовать следующую строку подключения в своем приложении:
+
+```json
+
+"ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=<Database Name>;Trusted_Connection=False;MultipleActiveResultSets=true;User ID=SA;Password=STRONG!Passw0rd"
+  }
+
+```
+
+
 ## Полезные ссылки:
 
 - [Quickstart: Run SQL Server container images with Docker](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-powershell)
