@@ -2,7 +2,7 @@
 layout: post
 title: Манифест Чистого Программиста, или краткий конспект книги «Чистый Код» Роберта Мартина
 category: book
-tags: [books, education, clean code, lifestyle]
+tags: [books, education, clean_code, lifestyle]
 ---
 
 Источник: https://habr.com/ru/post/424051/

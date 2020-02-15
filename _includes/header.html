@@ -1,53 +1,7 @@
-<!-- TODO this file has become a mess, refactor it -->
-
-{% if page.bigimg or page.title %}
-
-<header class="header-section {% if page.bigimg %}has-img{% endif %}">
-{% if page.bigimg %}
-  <div class="big-img intro-header" style="background-image: url('/{{ page.bigimg }}');">
-    <div class="container">
-      <div class="{{ include.type }}-heading">
-        <h1>{% if page.title %}{{ page.title }}{% else %}<br/>{% endif %}</h1>
-            {% if page.subtitle %}
-              {% if include.type == "page" %}
-                  <hr class="small">
-                  <span class="{{ include.type }}-subheading">{{ page.subtitle }}</span>
-            {% else %}
-            <h2 class="{{ include.type }}-subheading">{{ page.subtitle }}</h2>
-            {% endif %}
-            {% endif %}
-            
-            {% if include.type == "post" %}
-            <span class="post-meta">Posted on {{ page.date | date: site.date_format }}</span>
-            {% endif %}
-      </div>
-    </div>
-    <span class='img-desc'></span>
-  </div>
-{% endif %}
-
-<div class="intro-header no-img">
-  <div class="container">
-    <div class="{{ include.type }}-heading">
-      <h1>{% if page.title %}{{ page.title }}{% else %}<br/>{% endif %}</h1>
-          {% if page.subtitle %}
-            {% if include.type == "page" %}
-                <hr class="small">
-                <span class="{{ include.type }}-subheading">{{ page.subtitle }}</span>
-          {% else %}
-          <h2 class="{{ include.type }}-subheading">{{ page.subtitle }}</h2>
-          {% endif %}
-          {% endif %}
-          
-          {% if include.type == "post" %}
-          <span class="post-meta">Posted on {{ page.date | date: site.date_format }}</span>
-          {% endif %}
-    </div>
-  </div>
-</div>
+<header class="masthead">
+  <h3 class="masthead-title">
+    <a href="{{ site.github.url }}/">{{ site.title }}</a>
+    <small class="masthead-subtitle ml-1">{{ site.description }}</small>
+    {% include menu.html %}
+  </h3>
 </header>
-
-
-{% else %}
-<div class="intro-header"></div>
-{% endif %}

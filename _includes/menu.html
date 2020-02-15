@@ -1,0 +1,14 @@
+<div class="menu">
+
+  <nav class="menu-content">
+    {% for item in site.data.settings.menu %}
+      <a href="{{ site.github.url }}/{{ item.url }}">{{ item.name }}</a>
+    {% endfor %}
+
+    <a target="_blank" href="https://maximgorbatyuk.gitbook.io/knowledge-base/" title="Knowledge base">KB</a>
+  </nav>
+
+  <nav class="social-icons">
+    {% include social-icons.html %}
+  </nav>
+</div>
