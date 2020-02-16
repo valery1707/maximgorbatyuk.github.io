@@ -33,17 +33,17 @@ tags: [.net, processes, cicd, pipeline]
 
 ## Настраиваем репозиторий
 
-Мне нравится подход к разработке софта [Егора Бугаенко](https://yegor256.com). Я законспектировал [несколько его докладов](/menu/tags.html#yegor256) на этом блоге. Если кратко, то вот основные принципы, который я буду следовать при настройке репозитория:
+Мне нравится подход к разработке софта [Егора Бугаенко](https://yegor256.com). Я законспектировал [несколько его докладов](/menu/tags.html#yegor256) на этом блоге. Если кратко, то вот основные принципы, которым я буду следовать при настройке репозитория:
 
-- Ограничение прав на пуш. Я ограничу права на пуш в develop и master всем, кроме мейнтейнеров (maintainer).
-- Пайплайн сборки. Я пропишу пайплайн для сборки проекта в гитлаб и прогона юниттестов как для бэкенда, так и фронта.
-- Repository is a king. В репозитории будут прописаны правила работы с кодом и gitflow, а также другие связанные с подходами в разработке документы.
-- Fail fast. Если код написан невалидно с точки зрения стандартного стиля, то разработчик получит ошибку компиляции.
-- Git pre-commits hoocks. Чтобы не занимать раннеры гитлаба лишком часто, я добавлю прогон тестов и иные полезные операции на пре-коммит хуки гита.
+- **Ограничение прав на пуш**. Я ограничу права на пуш в develop и master всем, кроме мейнтейнеров (maintainer).
+- **Пайплайн сборки**. Я пропишу пайплайн для сборки проекта в гитлаб и прогона юниттестов как для бэкенда, так и фронта.
+- **Repository is a king**. В репозитории будут прописаны правила работы с кодом и gitflow, а также другие связанные с подходами в разработке документы.
+- **Fail fast**. Если код написан невалидно с точки зрения стандартного стиля, то разработчик получит ошибку компиляции.
+- **Git pre-commits hoocks**. Чтобы не занимать раннеры гитлаба лишком часто, я добавлю прогон тестов и иные полезные операции на пре-коммит хуки гита.
 
 Что мы получим в итоге? Во-первых, в master и develop смогут залить код только мейнтейнеры проекта. В идеале, конечно, и им нужно ограничить доступ, чтобы только "автомат" мог сливать ветки. Я оставил реализацию этого принципа "на потом". Ограничение прав настраивается через интерфейс гитлаба, поэтому я не буду описывать этот этап здесь.
 
-## Настраиваем бэкенд
+## Валидация бэкенда
 
 Я настраиваю solution-файл (*.sln) проекта так, чтобы он выдавал несоответствия написанного кода стандартам стайл-гайда .NET как ошибки компиляции. Чтобы сделать это, мне понадобится файл с перечислением кодов ошибок, пара nuget-пакетов и немного терпения.
 
@@ -51,67 +51,72 @@ tags: [.net, processes, cicd, pipeline]
 
 1. `Directory.build.props`:
 
-```xml
+<details>
+<summary>Много текста</summary>
 
-<?xml version="1.0" encoding="utf-8"?>
-<Project>
+  ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project>
 
-  <PropertyGroup>
-    <Description>An implementation of StyleCop rules using the .NET Compiler Platform</Description>
-    <Product>StyleCop.Analyzers</Product>
-    <Company>Tunnel Vision Laboratories, LLC</Company>
-    <Copyright>Copyright © Tunnel Vision Laboratories, LLC 2015</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
+      <PropertyGroup>
+        <Description>An implementation of StyleCop rules using the .NET Compiler Platform</Description>
+        <Product>StyleCop.Analyzers</Product>
+        <Company>Tunnel Vision Laboratories, LLC</Company>
+        <Copyright>Copyright © Tunnel Vision Laboratories, LLC 2015</Copyright>
+        <NeutralLanguage>en-US</NeutralLanguage>
 
-    <Version>1.1.0.39</Version>
-    <FileVersion>1.1.0.39</FileVersion>
-    <InformationalVersion>1.1.0-dev</InformationalVersion>
-  </PropertyGroup>
+        <Version>1.1.0.39</Version>
+        <FileVersion>1.1.0.39</FileVersion>
+        <InformationalVersion>1.1.0-dev</InformationalVersion>
+      </PropertyGroup>
 
-  <PropertyGroup>
-    <LangVersion>7</LangVersion>
-    <Features>strict</Features>
-  </PropertyGroup>
+      <PropertyGroup>
+        <LangVersion>7</LangVersion>
+        <Features>strict</Features>
+      </PropertyGroup>
 
-  <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' != 'true'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
+      <PropertyGroup Condition="'$(BuildingInsideVisualStudio)' != 'true'">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      </PropertyGroup>
 
-  <PropertyGroup>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+      <PropertyGroup>
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+      </PropertyGroup>
 
-  <PropertyGroup>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
-  </PropertyGroup>
+      <PropertyGroup>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+      </PropertyGroup>
 
-  <ItemGroup Condition="'$(DisableStylecop)' != true">
-    <PackageReference Include="AsyncUsageAnalyzers" Version="1.0.0-alpha003" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers"/>
-	<AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-  </ItemGroup>
+      <ItemGroup Condition="'$(DisableStylecop)' != true">
+        <PackageReference Include="AsyncUsageAnalyzers" Version="1.0.0-alpha003" PrivateAssets="all" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers"/>
+      <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json">
+          <Link>stylecop.json</Link>
+        </AdditionalFiles>
+      </ItemGroup>
 
- <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)standard.ruleset" Link="standard.ruleset" />
-    <None Include="$(AppDesignerFolder)\launchSettings.json" Condition="Exists('$(AppDesignerFolder)\launchSettings.json')" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)standard.ruleset" Link="standard.ruleset" />
+        <None Include="$(AppDesignerFolder)\launchSettings.json" Condition="Exists('$(AppDesignerFolder)\launchSettings.json')" />
+      </ItemGroup>
 
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)standard.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  
-</Project>
+      <PropertyGroup>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)standard.ruleset</CodeAnalysisRuleSet>
+      </PropertyGroup>
+      
+  </Project>
+  ```
+</details>
 
-```
+
 
 2. `standard.ruleset`:
 
-```xml
-
+<details>
+  <summary>Слишком много строк</summary>
+  ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="Standard Rule Set" Description=" " ToolsVersion="16.0">
     <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
@@ -350,8 +355,9 @@ tags: [.net, processes, cicd, pipeline]
         <Rule Id="CS1574" Action="None" />
     </Rules>
 </RuleSet>
-
 ```
+</details>
+
 
 3. `stylecop.json`:
 
@@ -380,7 +386,7 @@ tags: [.net, processes, cicd, pipeline]
 
 После этих действий наш проект не будет собираться, пока в нем будут ошибки стиля кодирования.
 
-## Настраиваем фронтенд
+## Валидация фронтенда
 
 Фронтенд-приложение тоже необходимо валидировать. Здесь настройки пайплайна менее критичны к нарущениям стайл-гайда: если мы пропустим где-то точку с запятой, то проект все равно будет работать. На страже репозитория здесь будет стоять раннер (runner) пайплайна в удаленном репозитории. Я автоматизирую следующие команды:
 
@@ -450,50 +456,20 @@ customLaunchers: {
 });
 ```
 
+Теперь в скриптах пайплайна можно запускать тесты командой `npm test-headless-ci-only`.
 
----
+## Стандартизируем код фронтенда
 
-## Для бэкенда
+Чтобы код-ревью тикетов для фронтенда не превратились в обсуждение `tab vs spaces`, лучше всего стандартизировать форматирование. Лучше всего подойдет [prettierrc](https://prettier.io/docs/en/configuration.html). Чтобы добавить prettierrc в проект, необходимо:
 
-1. Создать файлы в корне проекта, где лежит солюшн файл. Во вложении файлы.
-2. Установить nuget 'StyleCop.Analyzers' для всего солюшна.
+1. Установить пакеты prettier и pretty-quick глобально:
 
----
-
-## Для фронта
-
-1. Добавить скрипты в package.json:
-
-```json
-"scripts": {
-    "ng": "ng",
-    "start": "ng serve -o",
-    "build": "ng build",
-    "build-stage": "ng build --configuration=staging",
-    "build-prod": "ng build --prod",
-    "test": "ng test",
-    "test-headless-ci-only": "ng test --browsers ChromiumNoSandbox",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-
+```bash
+npm install -g prettier
+npm install -g pretty-quick
 ```
 
-2. Установить пакеты husky, prettier и pretty-quick. Желательно глобально тоже
-3. Добавить хук хаски в package.json в конец:
-
-```json
-"devDependencies": {},
-"husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "pre-push": "ng lint && ng test --browsers ChromiumNoSandbox"
-    }
-  }
-
-```
-
-4. Добавить правила для prettier. Имя файла `.prettierrc` в корне проекта:
+2. Добавить файл конфигурации с именем `.prettierrc` в корень фронтенд-приложения:
 
 ```json
 
@@ -507,7 +483,8 @@ customLaunchers: {
 }
 
 ```
-Файл `.prettierignore` в корне проекта:
+
+3. Добавить список файлов для игнорирования prettier-ом в файл с именем `.prettierignore`  в корень фронтенд-приложения:
 
 ```plaintext
 package.json
@@ -526,31 +503,41 @@ ng-package.json
 *.html
 ```
 
-5. Добавить либу puppeteer в файл `karma.conf.json` в начало:
+Теперь можно "привести в порядок" код фронтенда командой `pretty-quick --staged`.
 
-```js
-const process = require("process");
-process.env.CHROME_BIN = require("puppeteer").executablePath();
+## Использование прекоммит-хуков
+
+Запуск раннера пайплайна в CI/CD системах - это потребление ресурсов, и зачастую небесплатных. Можно и нужно запускать валидацию проекта локально, но делать это на каждый коммит надоедает. В итоге люди перестают запускать скрипты так часто. Чтобы автоматизировать этот процесс, я пользуюсь прекоммит-хуками, которые позволяют запускать полезные скрипты при коммитах и пушах. 
+
+Для фронтенда лучше всего подойдет библиотека [husky](https://github.com/typicode/husky). Чтобы настроить хук, необходимо:
+
+1. Установить библиотеку husky
+
+```bash
+npm install -g husky
 ```
 
-6. Добавить кастомный лаунчер:
+2. Добавить хук husk в файл `package.json` в конец:
 
 ```js
+"devDependencies": {
+  ...
+},
+"husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "ng lint && ng test --browsers ChromiumNoSandbox"
+    }
+  }
 
-config.set({
-....,
-customLaunchers: {
-      ChromiumNoSandbox: {
-        base: "ChromeHeadless",
-        flags: [
-          "--no-sandbox",
-          "--headless",
-          "--disable-gpu",
-          "--disable-translate",
-          "--disable-extensions"
-        ]
-      }
-    },
-    singleRun: true
-});
 ```
+
+Здесь я разделил команды: нет необходимости проверять тесты фронтенда на каждый коммит, но мы не дадим залить изменения в удаленный репозиторий, пока тесты не будут "зелеными".
+
+# Итог
+
+После того, как сделаны описанные в статье шаги, я получаю проект, который "защищает сам себя" от невалидного кода. Понятное дело, что одной проверкой синтаксиса и стайл-гайда не уберечь продукт от багов, однако даже эти незначительные вещи помогают в достижении большего качества кода и позволяют обсуждать архитектурные решения на код-ревью, а не вопросы форматирования или "табы или пробелы".
+
+# Полезные ссылки
+
+
