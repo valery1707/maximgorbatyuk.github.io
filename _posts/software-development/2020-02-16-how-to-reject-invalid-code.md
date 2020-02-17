@@ -38,7 +38,7 @@ tags: [.net, processes, cicd, pipeline]
 # Пайплайн репозитория
 
 Пайплайн репозитория - механизм, предотвращающий попадаение невалидного кода с второстепенных веток в основную `master branch`.
-"Из коробки" пайплайны доступны в [Gitlab](https://gitlab.com) и [Azure DevOps](https://dev.azure.com), а в Github - через [Travic CI](https://travis-ci.org/).
+"Из коробки" пайплайны доступны в [Gitlab](https://gitlab.com) и [Azure DevOps](https://dev.azure.com), а в Github - через [Travis CI](https://travis-ci.org/).
 
 ## Настраиваем репозиторий
 
