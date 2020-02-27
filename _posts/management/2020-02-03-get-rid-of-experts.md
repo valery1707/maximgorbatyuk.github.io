@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Избавляйтесь от экспертов / Егор Бугаенко
+title: Избавляйтесь от экспертов. Егор Бугаенко
 category: management
 tags: [original, project management, processes, yegor256]
 ---

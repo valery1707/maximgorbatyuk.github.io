@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Вы уверены, что вы не микроменеджер? / Егор Бугаенко
+title: Вы уверены, что вы не микроменеджер? Егор Бугаенко
 category: management
 tags: [original, project management, processes, yegor256]
 ---

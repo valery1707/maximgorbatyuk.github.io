@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Five trends we are afraid of / Егор Бугаенко
+title: Five trends we are afraid of. Егор Бугаенко
 category: management
 tags: [original, project management, processes, yegor256]
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Правильно ли мы тестируем / Егор Бугаенко
+title: Правильно ли мы тестируем? Егор Бугаенко
 category: management
 tags: [project management, processes, yegor256, testing]
 ---
